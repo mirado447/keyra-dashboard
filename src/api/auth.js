@@ -1,48 +1,17 @@
-const BASE_URL = "http://localhost:8000";
+import { apiFetch } from "./client";
 
-export async function registerDeveloper(name, email, password) {
-    try {
-        const response = await fetch(`${BASE_URL}/developers/register`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({name, email, password}),
-        });
-
-        const data = await response.json();
-
-        //TODO : rendre le message d'erreur plus explicite
-        if (!response.ok) {
-            const message = Array.isArray(data.detail)
-                ? data.detail.map((err) => err.msg).join(", ")
-                : data.detail || `Error: ${response.status}`
-            throw new Error(message);
-        }
-        return data;
-    } catch (error) {
-        console.log(`Error: ${error.message}`);
-        throw error;
-    }
+export function registerDeveloper(name, email, password) {
+    return apiFetch("/developers/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+    });
 }
 
-export async function loginDeveloper(email, password) {
-    try {
-        const response = await fetch(`${BASE_URL}/developers/login`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({email, password}),
-        })
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            const message = Array.isArray(data.detail)
-                ? data.detail.map((err) => err.msg).join(", ")
-                : data.detail || `Error: ${response.status}`
-            throw new Error(message);
-        }
-        return data;
-    } catch (error) {
-        console.log(`Error: ${error.message}`);
-        throw error;
-    }
+export function loginDeveloper(email, password) {
+    return apiFetch("/developers/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+    });
 }

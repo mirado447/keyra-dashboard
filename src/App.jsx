@@ -4,6 +4,7 @@ import RegisterPage from './pages/RegisterPage';
 import ApplicationsPage from './pages/ApplicationsPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css'
+import LogoutPage from './pages/LogoutPage';
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
     <Routes>
       <Route path='/register' element={<RegisterPage />} />
       <Route path='/login' element={<LoginPage />} />
+      <Route path='/logout' element={<LogoutPage />} />
       <Route
         path='/applications'
         element={

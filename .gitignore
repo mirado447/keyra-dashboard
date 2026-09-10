@@ -28,3 +28,4 @@ dist/
 .env
 .env.*
 !.env.example
+PROJECT_ANALYSIS.md
