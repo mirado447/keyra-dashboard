@@ -5,11 +5,13 @@ import ApplicationsPage from './pages/ApplicationsPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css'
 import LogoutPage from './pages/LogoutPage';
+import HomeRedirect from './pages/HomeRedirect';
 
 function App() {
 
   return (
     <Routes>
+      <Route path='/' element={<HomeRedirect />} />
       <Route path='/register' element={<RegisterPage />} />
       <Route path='/login' element={<LoginPage />} />
       <Route path='/logout' element={<LogoutPage />} />
@@ -21,6 +23,7 @@ function App() {
           </ProtectedRoute>
         }
       />
+      <Route path='*' element={<NotFoundPage />} />
     </Routes>
   )
 }
