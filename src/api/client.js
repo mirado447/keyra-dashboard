@@ -3,9 +3,9 @@ const BASE_URL = import.meta.env.VITE_API_URL;
 export async function apiFetch(path, options = {}) {
     const response = await fetch(`${BASE_URL}${path}`, options);
 
-    const hadToken = Boolean(localStorage.getItem("token"));
+    const isAuthenticatedRequest = Boolean(options.headers?.Authorization);
 
-    if (response.status === 401 && hadToken) {
+    if (response.status === 401 && isAuthenticatedRequest) {
         localStorage.removeItem("token");
         window.location.href = "/login";
         throw new Error("Session expirée, veuillez vous reconnecter");
