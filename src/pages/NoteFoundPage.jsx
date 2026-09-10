@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function NotFoundPage() {
+function NoteFoundPage() {
     return (
         <div>
             <h1>Page introuvable</h1>
@@ -9,4 +9,4 @@ function NotFoundPage() {
     );
 }
 
-export default NotFoundPage;
+export default NoteFoundPage;

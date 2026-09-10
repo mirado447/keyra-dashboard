@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import './App.css'
 import LogoutPage from './pages/LogoutPage';
 import HomeRedirect from './pages/HomeRedirect';
+import NoteFoundPage from './pages/NoteFoundPage';
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
           </ProtectedRoute>
         }
       />
-      <Route path='*' element={<NotFoundPage />} />
+      <Route path='*' element={<NoteFoundPage/> } />
     </Routes>
   )
 }

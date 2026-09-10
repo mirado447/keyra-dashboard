@@ -9,6 +9,7 @@ function ApplicationsPage() {
     const [name, setName] = useState("");
     const [newlyCreated, setNewlyCreated] = useState(null);
     const [errorMessage, setErrorMessage] = useState("");
+    const [isCreating, setIsCreating] = useState(false);
 
     useEffect(() => {
         async function loadApplication() {
@@ -26,13 +27,17 @@ function ApplicationsPage() {
 
     async function handleCreate(e) {
         e.preventDefault();
+        setErrorMessage("");
+        setIsCreating(true);
         try {
             const created = await createApplication(name, token);
             setNewlyCreated(created);
-            setApplications([...applications, created]);
+            setApplications((current) => [...current, created]);
             setName("");
         } catch (error) {
             setErrorMessage(error.message);
+        } finally {
+            setIsCreating(false);
         }
     }
     
@@ -54,7 +59,9 @@ function ApplicationsPage() {
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Nom de l'application"
                 />
-                <button type="submit">Creér</button>
+                <button type="submit" disabled={isCreating}>
+                    {isCreating ? "Création..." : "Créer"}
+                </button>
             </form>
 
             {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
@@ -65,7 +72,7 @@ function ApplicationsPage() {
                 <ul>
                     {applications.map((app) => (
                         <li key={app.id}>
-                            {app.name} - <code>{app.public_key}</code>
+                            {app.name} — <code>{app.public_key}</code> — {app.end_user_count} utilisateur{app.end_user_count > 1 ? "s" : ""}
                         </li>
                     ))}
                 </ul>

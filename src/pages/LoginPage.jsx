@@ -7,30 +7,51 @@ function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
     const { login } = useAuth();
 
     async function handleSubmit(e) {
         e.preventDefault();
+        setErrorMessage("");
+        setIsSubmitting(true);
         try {
             const data = await loginDeveloper(email, password);
             login(data.access_token);
             navigate("/applications");
         } catch (error) {
-            setErrorMessage(error.message)
+            setErrorMessage(error.message);
+        } finally {
+            setIsSubmitting(false);
         }
     }
 
     return (
         <form onSubmit={handleSubmit}>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mot de passe" />
+            <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                required
+                autoComplete="email"
+                disabled={isSubmitting}
+            />
+            <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Mot de passe"
+                required
+                autoComplete="current-password"
+                disabled={isSubmitting}
+            />
             {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-            <button type="submit">Connexion</button>
+            <button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Connexion..." : "Connexion"}
+            </button>
         </form>
     )
 }
 
 export default LoginPage;
-
-
