@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginDeveloper } from "../api/auth";
 import { useAuth } from "../context/useAuth";
+import AuthLayout from "../components/ui/AuthLayout";
+import Input from "../components/ui/Input";
+import Button from "../components/ui/Button";
 
 function LoginPage() {
     const [email, setEmail] = useState("");
@@ -27,30 +30,42 @@ function LoginPage() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                required
-                autoComplete="email"
-                disabled={isSubmitting}
-            />
-            <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Mot de passe"
-                required
-                autoComplete="current-password"
-                disabled={isSubmitting}
-            />
-            {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-            <button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Connexion..." : "Connexion"}
-            </button>
-        </form>
+        <AuthLayout
+            subtitle="Welcome back — sign in to continue."
+            footer={
+                <>
+                    No account ?{" "}
+                    <Link to="/register" className="text-violet-400 hover:text-violet-300 font-medium" >
+                        Create one
+                    </Link>
+                </>
+            }
+        >
+            <form onSubmit={handleSubmit} className="space-y-4">
+                <Input
+                    label="Email address"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="ada@company.io"
+                    required
+                    disabled={isSubmitting}
+                />
+                <Input
+                    label="Password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Mot de passe"
+                    required
+                    disabled={isSubmitting}
+                />
+                {errorMessage && <p className="text-red-400 text-sm">{errorMessage}</p>}
+                <Button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? "Connexion..." : "Connexion"}
+                </Button>
+            </form>
+        </AuthLayout>
     )
 }
 

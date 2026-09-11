@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registerDeveloper } from "../api/auth";
+import AuthLayout from "../components/ui/AuthLayout";
+import Input from "../components/ui/Input";
+import Button from "../components/ui/Button";
 
 function RegisterPage() {
     const [name, setName] = useState("");
@@ -25,15 +28,51 @@ function RegisterPage() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nom" required autoComplete="name" disabled={isSubmitting} />
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required autoComplete="email" disabled={isSubmitting}  />
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mot de passe" required autoComplete="current-password" disabled={isSubmitting}  />
-            {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-            <button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Enregistrement..." : "S'inscrire"}
-            </button>
-        </form>
+        <AuthLayout
+            subtitle="Create your account to get started"
+            footer={
+                <>
+                    Already have one ?{" "}
+                    <Link to={"/login"} className="text-violet-400 hover:text-violet-300 font-medium" >
+                        Sign in
+                    </Link>
+                </>
+            }
+        >
+            <form onSubmit={handleSubmit} className="space-y-4">
+                <Input 
+                    label="Full name"
+                    type="text" 
+                    value={name} 
+                    onChange={(e) => setName(e.target.value)} 
+                    placeholder="Ava Lovelace" 
+                    required 
+                    disabled={isSubmitting} 
+                />
+                <Input 
+                    label="Email address"
+                    type="email" 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    placeholder="ava@company.io" 
+                    required 
+                    disabled={isSubmitting} 
+                />
+                <Input 
+                    label="Password" 
+                    type="password" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    placeholder="At least 8 characters" 
+                    required
+                    disabled={isSubmitting}  
+                />
+                {errorMessage && <p className="text-red-400 text-sm">{errorMessage}</p>}
+                <Button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? "Enregistrement..." : "S'inscrire"}
+                </Button>
+            </form>
+        </AuthLayout>
     )
 }
 
