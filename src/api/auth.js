@@ -15,3 +15,9 @@ export function loginDeveloper(email, password) {
         body: JSON.stringify({ email, password }),
     });
 }
+
+export function getMe(token) {
+  return apiFetch("/developers/me", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}

@@ -16,3 +16,16 @@ export function createApplication(name, token) {
         body: JSON.stringify({ name }),
     });
 }
+
+export function getApplication(id, token) {
+  return apiFetch(`/applications/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+export function regenerateSecret(id, token) {
+  return apiFetch(`/applications/${id}/regenerate-secret`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}

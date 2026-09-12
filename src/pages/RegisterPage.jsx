@@ -68,7 +68,7 @@ function RegisterPage() {
                     disabled={isSubmitting}  
                 />
                 {errorMessage && <p className="text-red-400 text-sm">{errorMessage}</p>}
-                <Button type="submit" disabled={isSubmitting}>
+                <Button type="submit" className="w-full" disabled={isSubmitting}>
                     {isSubmitting ? "Enregistrement..." : "S'inscrire"}
                 </Button>
             </form>
