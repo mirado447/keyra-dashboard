@@ -18,7 +18,12 @@ function ApplicationCard({ application }) {
           {application.name.charAt(0).toUpperCase()}
         </div>
         <div className="min-w-0">
-          <p className="font-semibold text-white">{application.name}</p>
+          <div className="flex items-center gap-2">
+            <p className="font-semibold text-white">{application.name}</p>
+            {application.description && (
+              <p className="text-xs text-zinc-500">{application.description}</p>
+            )}
+          </div>
           <code className="text-zinc-500 text-xs truncate block">{application.public_key}</code>
         </div>
       </div>

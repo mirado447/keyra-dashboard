@@ -77,6 +77,9 @@ function ApplicationDetailPage() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-white">{application.name}</h1>
+            {application.description && (
+              <p className="text-xs text-zinc-500">{application.description}</p>
+            )}
           </div>
         </div>
         <span className="flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full">

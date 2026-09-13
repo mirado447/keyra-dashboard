@@ -11,6 +11,7 @@ function CreateApplicationPage() {
   const { token } = useAuth();
   const navigate = useNavigate();
   const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [createdApp, setCreatedApp] = useState(null);
@@ -22,7 +23,7 @@ function CreateApplicationPage() {
     setErrorMessage("");
     setIsSubmitting(true);
     try {
-      const data = await createApplication(name, token);
+      const data = await createApplication(name,description, token);
       setCreatedApp(data);
     } catch (error) {
       setErrorMessage(error.message);
@@ -58,6 +59,13 @@ function CreateApplicationPage() {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="My Web App"
                 required
+                disabled={isSubmitting}
+              />
+              <Input
+                label="Description (optional)"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Customer-facing web application"
                 disabled={isSubmitting}
               />
               {errorMessage && <p className="text-red-400 text-sm">{errorMessage}</p>}

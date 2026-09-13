@@ -6,14 +6,14 @@ export function getApplications(token) {
     });
 }
 
-export function createApplication(name, token) {
+export function createApplication(name, description, token) {
     return apiFetch("/applications/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name, description: description || null }),
     });
 }
 
