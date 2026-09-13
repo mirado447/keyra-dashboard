@@ -19,14 +19,14 @@ function RegisterPage() {
         setIsSubmitting(true);
         try {
             await registerDeveloper(name, email, password);
-            navigate("/login");
-        } catch(error) {
+            navigate("/login", { state: { registered: true } });
+        } catch (error) {
             setErrorMessage(error.message);
         } finally {
             setIsSubmitting(false);
         }
     }
-
+    
     return (
         <AuthLayout
             subtitle="Create your account to get started"
