@@ -1,13 +1,13 @@
 import { apiFetch } from "./client";
 
 export function getApplications(token) {
-    return apiFetch("/applications", {
+    return apiFetch("/applications/", {
         headers: { Authorization: `Bearer ${token}` },
     });
 }
 
 export function createApplication(name, token) {
-    return apiFetch("/applications", {
+    return apiFetch("/applications/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
